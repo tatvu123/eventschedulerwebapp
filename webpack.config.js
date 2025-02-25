@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -9,8 +8,9 @@ module.exports = {
     sw: './sw.js'
   },
   output: {
-    filename: '[name].[contenthash].js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
     clean: true,
   },
   mode: 'development',
@@ -21,9 +21,7 @@ module.exports = {
     compress: true,
     port: 9000,
     hot: true,
-    devMiddleware: {
-      writeToDisk: true,
-    }
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -36,11 +34,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
-    }),
-    new CopyPlugin({
-      patterns: [
-        { from: 'style.css', to: 'style.css' },
-      ],
     }),
     new webpack.DefinePlugin({
       __BUILD_DATE__: JSON.stringify(Date.now())
