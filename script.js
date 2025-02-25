@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { getFirestore, collection, query, where, onSnapshot, doc, updateDoc, deleteDoc, setDoc, getDoc, Timestamp } from 'firebase/firestore';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import 'regenerator-runtime/runtime';
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -32,12 +31,11 @@ const appElement = document.getElementById('app');
 
 // Service Worker
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        reg.addEventListener('updatefound', () => {
-          window.location.reload();
-        });
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+      reg.addEventListener('updatefound', () => {
+        window.location.reload();
       });
+    });
   }
 
 // IndexedDB Setup

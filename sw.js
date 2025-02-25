@@ -2,12 +2,15 @@
 // It is responsible for caching the app shell and handling background sync tasks.
 // Cache the app shell
 
-const CACHE_NAME = 'my-app-cache-v1';
+const CACHE_NAME = `cache-v${__BUILD_DATE__}`;
 const ASSETS = [
   '/',
   '/index.html',
+  '/style.css',
   '/script.js',
-  '/style.css'
+  '/dist/bundle.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+  'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap'
 ];
 
 self.addEventListener('install', (event) => {
