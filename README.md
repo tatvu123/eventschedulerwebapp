@@ -1,4 +1,4 @@
-# eventschedulerwebapp
+# LeEpoch
 
 Smart event scheduler web app with WCAG, SSO and AI Chatbot intergration.
 
