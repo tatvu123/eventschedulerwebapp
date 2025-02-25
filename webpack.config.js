@@ -11,6 +11,7 @@ module.exports = {
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
     clean: true,
   },
   mode: 'development',
@@ -40,7 +41,6 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: 'style.css', to: 'style.css' },
-        { from: 'sw.js', to: 'sw.js' },
       ],
     }),
     new webpack.DefinePlugin({

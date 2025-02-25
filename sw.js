@@ -2,7 +2,7 @@
 // It is responsible for caching the app shell and handling background sync tasks.
 // Cache the app shell
 
-const CACHE_NAME = `event-scheduler-${__BUILD_DATE__}`;
+const CACHE_NAME = `cache-v${__BUILD_DATE__}`;
 const ASSETS = [
   '/',
   '/index.html',
