@@ -2,7 +2,7 @@ import eslint from 'eslint';
 
 export default [
   {
-    ignores: ["dist/**", "node_modules/**"]
+    ignores: ["dist/**", "node_modules/**" ,"docs/**"]
   },
   {
     files: ["**/*.js"],
