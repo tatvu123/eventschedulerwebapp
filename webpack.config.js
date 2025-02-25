@@ -1,11 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: './script.js',
+  entry: {
+    main: './script.js',
+    sw: './sw.js'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
@@ -17,6 +21,9 @@ module.exports = {
     compress: true,
     port: 9000,
     hot: true,
+    devMiddleware: {
+      writeToDisk: true,
+    }
   },
   module: {
     rules: [
@@ -32,9 +39,14 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: 'sw.js', to: 'sw.js' },
         { from: 'style.css', to: 'style.css' },
       ],
     }),
+    new webpack.DefinePlugin({
+      __BUILD_DATE__: JSON.stringify(Date.now())
+    }),
   ],
+  optimization: {
+    runtimeChunk: 'single',
+  },
 };
