@@ -41,10 +41,8 @@ jobs:
       - uses: actions/setup-node@v3
         with: { node-version: 18.x }
       - run: npm ci && npm run build
-      - name: Deploy to Firebase
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
-          channelId: live
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
