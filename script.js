@@ -5,12 +5,12 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyD-h1R0w91_b6a-5xiyEa_MV8UaQ30y6Dw",
-    authDomain: "eventschedulerwebapp.firebaseapp.com",
-    projectId: "eventschedulerwebapp",
-    storageBucket: "eventschedulerwebapp.firebasestorage.app",
-    messagingSenderId: "521503456109",
-    appId: "1:521503456109:web:61fa65c0a77d1b1e56b864"
+    apiKey: 'AIzaSyD-h1R0w91_b6a-5xiyEa_MV8UaQ30y6Dw',
+    authDomain: 'eventschedulerwebapp.firebaseapp.com',
+    projectId: 'eventschedulerwebapp',
+    storageBucket: 'eventschedulerwebapp.firebasestorage.app',
+    messagingSenderId: '521503456109',
+    appId: '1:521503456109:web:61fa65c0a77d1b1e56b864'
 };
 
 // Global Variables
@@ -460,15 +460,15 @@ function ruleChatBot(request) {
     const normalizedRequest = request.toLowerCase().trim();
 
     // Add new schedule
-    if (normalizedRequest.startsWith("add schedule")) {
+    if (normalizedRequest.startsWith('add schedule')) {
         openModal();
-        appendMessage("Please fill in the event details in the form that just opened", 'bot');
+        appendMessage('Please fill in the event details in the form that just opened', 'bot');
         return true;
     }
 
     // Delete schedule
-    if (normalizedRequest.startsWith("delete schedule")) {
-        const taskName = request.replace("delete schedule", "").trim();
+    if (normalizedRequest.startsWith('delete schedule')) {
+        const taskName = request.replace('delete schedule', '').trim();
         const event = events.find(e => e.title.toLowerCase() === taskName.toLowerCase());
 
         if (event) {
@@ -481,8 +481,8 @@ function ruleChatBot(request) {
     }
 
     // Edit schedule
-    if (normalizedRequest.startsWith("edit schedule")) {
-        const taskName = request.replace("edit schedule", "").trim();
+    if (normalizedRequest.startsWith('edit schedule')) {
+        const taskName = request.replace('edit schedule', '').trim();
         const event = events.find(e => e.title.toLowerCase() === taskName.toLowerCase());
 
         if (event) {
@@ -499,11 +499,11 @@ function ruleChatBot(request) {
 // AI API key
 async function initializeAIModel() {
     try {
-        const apiKeyDoc = await getDoc(doc(db, "apikey", "googlegenai"));
+        const apiKeyDoc = await getDoc(doc(db, 'apikey', 'googlegenai'));
         if (!apiKeyDoc.exists()) throw new Error('API key not found');
 
         genAI = new GoogleGenerativeAI(apiKeyDoc.data().key);
-        model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        model = genAI.getGenerativeModel({ model: 'gemini-pro' });
     } catch (error) {
         console.error('Please authenticate first', error);
     }
@@ -515,8 +515,8 @@ const aiHandler = {
         try {
             const user = auth.currentUser;
             if (!user) {
-                showFeedback("Please sign in first!");
-                return "Authentication required";
+                showFeedback('Please sign in first!');
+                return 'Authentication required';
             }
 
             if (!model) await initializeAIModel();
@@ -525,7 +525,7 @@ const aiHandler = {
             return result.response.text();
         } catch (error) {
             console.error('AI Error:', error);
-            return "Sorry, I couldn't process that request.";
+            return 'Sorry, I couldn\'t process that request.';
         }
     }
 };
@@ -545,7 +545,7 @@ auth.onAuthStateChanged(user => {
         loadEvents();
 
     } else {
-        document.getElementById('user-greeting').textContent = ``;
+        document.getElementById('user-greeting').textContent = '';
         signoutBtn.style.display = 'none';
         authOverlay.style.display = 'block';
         appElement.classList.add('hidden');
@@ -568,7 +568,7 @@ document.getElementById('chat-input').addEventListener('keypress', async (e) => 
                 appendMessage(response, 'bot');
             }
         } catch (error) {
-            appendMessage("Sorry, there was an error processing your request", 'bot');
+            appendMessage('Sorry, there was an error processing your request', 'bot');
         }
 
         e.target.value = '';
@@ -590,7 +590,7 @@ async function handleChatInput(e) {
             appendMessage(response, 'bot');
         }
     } catch (error) {
-        appendMessage("Sorry, there was an error processing your request", 'bot');
+        appendMessage('Sorry, there was an error processing your request', 'bot');
     }
 }
 
