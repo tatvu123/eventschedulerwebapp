@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack serve --open",
     "watch": "webpack --watch",
-    "lint": "eslint .",
+    "lint": "eslint . --config eslint.config.mjs",
     "test": "jest",
     "build": "webpack --mode production"
   },

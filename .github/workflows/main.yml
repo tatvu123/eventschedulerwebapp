@@ -17,7 +17,7 @@ jobs:
         node-version: 18.x
     - run: npm ci
     - name: ESLint Check
-      run: npx eslint .
+      run: npx eslint . --config eslint.config.mjs
 
   test:
     runs-on: ubuntu-latest
