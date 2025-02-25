@@ -40,6 +40,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: 'style.css', to: 'style.css' },
+        { from: 'sw.js', to: 'sw.js' },
       ],
     }),
     new webpack.DefinePlugin({
