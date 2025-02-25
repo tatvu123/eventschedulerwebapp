@@ -555,13 +555,15 @@ auth.onAuthStateChanged(user => {
 });
 
 // AI Chatbot
-document.getElementById('send-msg').addEventListener('click', handleChatInput);
+document.getElementById('send-msg').addEventListener('click', () => {
+    handleChatInput();
+});
+
 document.getElementById('chat-input').addEventListener('keypress', async (e) => {
     if (e.key === 'Enter' && e.target.value.trim()) {
         const prompt = sanitizeInput(e.target.value);
         appendMessage(prompt, 'user');
-        handleChatInput(e);
-
+        
         try {
             if (!ruleChatBot(prompt)) {
                 const response = await aiHandler.generate(prompt);
@@ -575,7 +577,7 @@ document.getElementById('chat-input').addEventListener('keypress', async (e) => 
     }
 });
 
-async function handleChatInput(e) {
+async function handleChatInput() { 
     const input = document.getElementById('chat-input');
     const prompt = sanitizeInput(input.value.trim());
     
@@ -593,7 +595,6 @@ async function handleChatInput(e) {
         appendMessage('Sorry, there was an error processing your request', 'bot');
     }
 }
-
 // Minimize chat
 document.getElementById('minimize-chat').addEventListener('click', toggleChat);
 let isChatMinimized = false;
