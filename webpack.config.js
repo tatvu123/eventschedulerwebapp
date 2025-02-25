@@ -36,7 +36,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
-      inject: 'body', // Ensure the script tags are injected into the body
     }),
     new CopyPlugin({
       patterns: [
