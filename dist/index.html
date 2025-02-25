@@ -1,1 +1,107 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,minimum-scale=0.1"><title>LeEpoch - Accessible Event Scheduler</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><script defer="defer" src="runtime.be8519de7b43afe092b6.js"></script><script defer="defer" src="main.bc9a4480cc851768b775.js"></script><script defer="defer" src="sw.6de492bd9717d3f1c207.js"></script></head><body><main id="app" class="hidden" role="main"><header class="app-header"><h1><i class="fas fa-calendar-alt" aria-hidden="true"></i> LeEpoch</h1><div id="user-greeting" aria-live="polite"></div><button id="signout-btn" class="glass" aria-label="Sign out" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sign Out</button></header><div id="auth-overlay" class="glass" role="dialog" aria-labelledby="auth-heading"><div class="auth-content"><h1 id="auth-heading">Welcome to LeEpoch</h1><button id="google-auth" class="auth-btn" aria-label="Sign in with Google">Continue with Google</button></div></div><div id="event-modal" class="modal glass hidden" role="dialog" aria-labelledby="modal-title" aria-modal="true"><div class="modal-content"><h3 id="modal-title">Schedule New Event</h3><form id="event-form" onsubmit="addEvent(event)"><div class="form-row"><div class="input-group"><label for="event-title">Event Title</label> <input id="event-title" required aria-describedby="title-help"></div><div class="input-group"><label for="event-time">Date & Time</label> <input type="datetime-local" id="event-time" required></div></div><div class="modal-actions"><button type="submit" id="save-event" class="action-btn save">Create Event</button> <button type="button" id="cancel-event" class="action-btn cancel">Cancel</button></div></form></div></div><div id="calendar-container"><div id="calendar-controls"><button id="prev-month" aria-label="Previous month"><i class="fas fa-chevron-left" aria-hidden="true"></i></button><h2 id="current-month" aria-live="polite"></h2><button id="next-month" aria-label="Next month"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><div id="calendar-grid" role="grid"></div></div><div id="assistant-container"><div id="assistant-header" class="glass"><div class="assistant-avatar" aria-hidden="true"><i class="fas fa-robot"></i></div><div class="assistant-info"><h4>LeEpoch Assistant</h4><p>How can I help you?</p></div><button id="minimize-chat" aria-label="Minimize chat"><i class="fas fa-minus"></i></button></div><div id="assistant-chat" class="glass"><div id="chat-messages" role="log" aria-live="polite"></div><div class="chat-input"><input id="chat-input" placeholder="Type a command..." aria-label="Chat input"> <button id="send-msg" aria-label="Send message"><i class="fas fa-paper-plane"></i></button></div></div></div></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.1">
+    <title>LeEpoch - Accessible Event Scheduler</title>
+    <!-- Font & Styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script defer src="runtime.aa9fe9f82ed5a3d6a07b.js"></script><script defer src="main.41c532a24f606e775c93.js"></script><script defer src="sw.97562ba624731e83e6ad.js"></script></head>
+
+<body>
+
+    <!-- Main App -->
+    <main id="app" class="hidden" role="main">
+        <!-- Header -->
+        <header class="app-header">
+            <h1><i class="fas fa-calendar-alt" aria-hidden="true"></i> LeEpoch</h1>
+            <div id="user-greeting" aria-live="polite"></div>
+            <button id="signout-btn" class="glass" aria-label="Sign out" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </button>
+        </header>
+        <!-- Auth Overlay -->
+        <div id="auth-overlay" class="glass" role="dialog" aria-labelledby="auth-heading">
+            <div class="auth-content">
+                <h1 id="auth-heading">Welcome to LeEpoch</h1>
+                <button id="google-auth" class="auth-btn" aria-label="Sign in with Google">Continue with Google
+                </button>
+            </div>
+        </div>
+
+        <!-- Event Form Modal -->
+        <div id="event-modal" class="modal glass hidden" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+            <div class="modal-content">
+                <h3 id="modal-title">Schedule New Event</h3>
+                <form id="event-form" onsubmit="addEvent(event)">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="event-title">Event Title</label>
+                            <input type="text" id="event-title" required aria-describedby="title-help">
+                        </div>
+                        <div class="input-group">
+                            <label for="event-time">Date & Time</label>
+                            <input type="datetime-local" id="event-time" required>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" id="save-event" class="action-btn save">Create Event</button>
+                        <button type="button" id="cancel-event" class="action-btn cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Calendar Container -->
+        <div id="calendar-container">
+            <div id="calendar-controls">
+                <button id="prev-month" aria-label="Previous month">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <h2 id="current-month" aria-live="polite"></h2>
+                <button id="next-month" aria-label="Next month">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div id="calendar-grid" role="grid"></div>
+        </div>
+
+
+        <!-- AI Assistant -->
+        <div id="assistant-container">
+            <div id="assistant-header" class="glass">
+                <div class="assistant-avatar" aria-hidden="true">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="assistant-info">
+                    <h4>LeEpoch Assistant</h4>
+                    <p>How can I help you?</p>
+                </div>
+                <button id="minimize-chat" aria-label="Minimize chat">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+            <div id="assistant-chat" class="glass">
+                <div id="chat-messages" role="log" aria-live="polite"></div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Type a command..." aria-label="Chat input">
+                    <button id="send-msg" aria-label="Send message">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating button -->
+    <!-- <button id="fab" class="fab" aria-label="Add new event">
+        <i class="fas fa-plus"></i>
+    </button> -->
+
+
+</body>
+
+</html>

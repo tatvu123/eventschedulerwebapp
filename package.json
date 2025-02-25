@@ -7,7 +7,7 @@
     "start": "webpack serve --open",
     "watch": "webpack --watch",
     "lint": "eslint . --config eslint.config.mjs",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "build": "webpack --mode production"
   },
   "keywords": [],
