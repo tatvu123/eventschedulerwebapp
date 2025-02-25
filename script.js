@@ -31,11 +31,21 @@ const appElement = document.getElementById('app');
 
 // Service Worker
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then(reg => {
-      reg.addEventListener('updatefound', () => {
-        window.location.reload();
+    navigator.serviceWorker.register(new URL('./sw.js', import.meta.url))
+      .then(registration => {
+        registration.addEventListener('updatefound', () => {
+          if (registration.installing) {
+            registration.installing.addEventListener('statechange', () => {
+              if (registration.active) {
+                window.location.reload();
+              }
+            });
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Service worker registration failed:', error);
       });
-    });
   }
 
 // IndexedDB Setup
