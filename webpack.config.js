@@ -5,8 +5,8 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    main: './script.js',
-    sw: './sw.js'
+    main: 'script.js',
+    sw: 'sw.js'
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -35,7 +35,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: 'index.html',
     }),
     new CopyPlugin({
       patterns: [
